@@ -1,9 +1,41 @@
-### Well hello there!
+## Put comments here that give an overall description of what your
+## functions do
+## Write a short comment describing this function
+makeCacheMatrix <- function(x = matrix()) {
+# initially nothing is cached so set it to NULL
+cache <- NULL
+# store a matrix
+setMatrix <- function(newValue) {
+x <<- newValue
+# since the matrix is assigned a new value, flush the cache
+cache <<- NULL
+}
+# returns the stored matrix
+getMatrix <- function() {
+x
+}
+# cache the given argument 
+cacheInverse <- function(solve) {
+cache <<- solve
+}
+# get the cached value
+getInverse <- function() {
+cache
+}
+# return a list. Each named element of the list is a function
+list(setMatrix = setMatrix, getMatrix = getMatrix, cacheInverse = cacheInverse, getInverse = getInverse)
 
-This repository is meant to provide an example for *forking* a repository on GitHub.
-
-Creating a *fork* is producing a personal copy of someone else's project. Forks act as a sort of bridge between the original repository and your personal copy. You can submit *Pull Requests* to help make other people's projects better by offering your changes up to the original project. Forking is at the core of social coding at GitHub.
-
-After forking this repository, you can make some changes to the project, and submit [a Pull Request](https://github.com/octocat/Spoon-Knife/pulls) as practice.
-
-For some more information on how to fork a repository, [check out our guide, "Forking Projects""](http://guides.github.com/overviews/forking/). Thanks! :sparkling_heart:
+}
+## Write a short comment describing this function
+cacheSolve <- function(x, ...) {
+## Return a matrix that is the inverse of 'x'
+inverse <- x$getInverse()
+if(!is.null(inverse)) {
+message("getting cached data")
+return(inverse)
+}
+data <- x$getMatrix()
+inverse <- solve(data)
+x$cacheInverse(inverse)
+inverse
+}
